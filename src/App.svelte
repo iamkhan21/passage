@@ -1,6 +1,6 @@
 <script>
   import { tick } from "svelte";
-  import QouteCard from "./QouteCard.svelte";
+  import QouteCard from "./QuoteCard.svelte";
   import PhraseText from "./PhraseForm.svelte";
   import { phraseJustification } from "./utils/phraseJustification";
 
