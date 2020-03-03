@@ -1,6 +1,6 @@
 <script>
   import Paragraph from "./Paragraph.svelte";
-  import domtoimage from "dom-to-image";
+  import domtoimage from "dom-to-image-more";
 
   export let paragraphs;
   let disabled = true;
@@ -16,7 +16,7 @@
 
   function doCardScreenshot(type) {
     return function() {
-      domtoimage[action[type]](card)
+      domtoimage[action[type]](card, { bgcolor: "#fff" })
         .then(function(dataUrl) {
           const link = document.createElement("a");
           link.download = `passage.${type}`;
