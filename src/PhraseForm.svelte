@@ -11,7 +11,7 @@
 
   function submitTest() {
     disabled = true;
-    dispatch("submit", phrase.trim());
+    dispatch("submit", phrase.trim().replace(/\.$/, ""));
   }
 
   function getRandomQuote() {
