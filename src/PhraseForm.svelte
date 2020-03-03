@@ -1,10 +1,11 @@
 <script>
-  import {createEventDispatcher} from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
 
   const dispatch = createEventDispatcher();
 
   let disabled = true;
-  let phrase = "I am so clever that sometimes I don't understand a single word of what I am saying";
+  let loading = false;
+  let phrase = "";
 
   $: disabled = !phrase;
 
@@ -12,15 +13,21 @@
     disabled = true;
     dispatch("submit", phrase.trim());
   }
+
+  function getRandomQuote() {
+    loading = true;
+    fetch("https://api.quotable.io/random")
+      .then(response => response.json())
+      .then(data => {
+        phrase = data.content;
+        loading = false;
+      });
+  }
+
+  onMount(() => {
+    getRandomQuote();
+  });
 </script>
-
-<form>
-  <div>
-    <textarea rows="5" bind:value={phrase} />
-  </div>
-  <button on:click={submitTest} {disabled}>Format</button>
-</form>
-
 
 <style lang="scss">
   textarea {
@@ -29,3 +36,13 @@
     border: 1px solid #e5e5e5;
   }
 </style>
+
+<div>
+  <div>
+    <textarea rows="5" bind:value={phrase} />
+  </div>
+  <div>
+    <button on:click={submitTest} {disabled}>Format</button>
+    <button on:click={getRandomQuote} disabled={loading}>Get quote</button>
+  </div>
+</div>
