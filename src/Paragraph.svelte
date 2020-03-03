@@ -24,6 +24,7 @@
 <style lang="scss">
   .row {
     width: 100%;
+
     &.hidden {
       visibility: hidden;
     }
